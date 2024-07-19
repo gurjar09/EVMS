@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Vendor Dashboard - {{ user.first_name}}&nbsp; {{ user.last_name }}</title>
+    <!-- Favicon -->
+    <!-- <link rel="stylesheet" href="/static/css/chatbot.css"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link href="/static/pics/EMTA.jpeg" rel="icon" type="image/png">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <!-- Icons -->
+    <link href="/static/css/js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
+    <link href="/static/css/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <!-- CSS Files -->
+    <link href="/static/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="/static/css/sizeoflink.css">
+    <style>
+        /* Basic styling for the modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+  
+</head>
+
+<body class="">
+    <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+        <div class="container-fluid">
+            <!-- Toggler -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main"
+                aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Brand -->
+            <a class="navbar-brand pt-0" href="{% url 'VendorDashboard' %}">
+                <img src="/static/pics/EMTALOGO.jpeg" class="navbar-brand-img" height="100" width="100" alt="...">
+            </a>
+            <!-- User -->
+            <ul class="nav align-items-center d-md-none">
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-link-icon" href="{% url 'profile_details' %}" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="ni ni-bell-55"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right"
+                        aria-labelledby="navbar-default_dropdown_1">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="{% url 'profile_details' %}" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <div class="media align-items-center">
+                            <span class="avatar avatar-sm rounded-circle">
+                                <img src="/static/pics/theme/team-1-800x800.jpg" alt="Image placeholder">
+                            </span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <!-- Collapse -->
+            <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+                <!-- Collapse header -->
+                <div class="navbar-collapse-header d-md-none">
+                    <div class="row">
+                        <div class="col-6 collapse-brand">
+                            <a href="{% url 'VendorDashboard' %}">
+                                <img src="/static/pics/EMTALOGO.jpeg">
+                            </a>
+                        </div>
+                        <div class="col-6 collapse-close">
+                            <button type="button" class="navbar-toggler" data-toggle="collapse"
+                                data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false"
+                                aria-label="Toggle sidenav">
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Form -->
+
+                <!-- Navigation -->
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link active" href="{% url 'VendorDashboard' %}" target="_blank">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile_details' %}" target="_blank">
+                            Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'establishment_details' %}" target="_blank">
+                            Establishment Document
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'bank_details' %}" target="_blank">
+                            Bank Details
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Transections' %}" target="_blank">
+                            Transactions
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'VendorLogout' %}" target="_blank">
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    <div class="main-content">
+        <!-- Navbar -->
+        <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+            <div class="container-fluid">
+                <!-- Brand -->
+                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
+                    href="{% url 'VendorDashboard' %}">Dashboard</a>
+                <!-- Form -->
+                <!-- User -->
+                <ul class="navbar-nav align-items-center d-none d-md-flex">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link pr-0" href="{% url 'profile_details' %}" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <div class="media align-items-center">
+                                <!-- <span class="avatar avatar-sm rounded-circle">
+                                    <img alt="Image placeholder" src="/static/pics/theme/team-4-800x800.jpg">
+                                </span> -->
+                                <div class="media-body ml-2 d-none d-lg-block">
+                                    <span class="mb-0 text-sm  font-weight-bold">Welcome,&nbsp;{{ user.first_name}}&nbsp; {{ user.last_name }}</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- End Navbar -->
+        <!-- <button id="chatbot-toggle-btn"><img src="/static/pics/botchat-removebg-preview.png" alt="buttonpng" height="40" width="40" /></button>
+    <div class="chatbot-popup" id="chatbot-popup">
+        <div class="chat-header">
+            <span>EMTA Chatbot</span>
+            <button id="close-btn">&times;</button>
+        </div>
+        <div class="chat-box" id="chat-box"></div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Type a message...">
+            <button id="send-btn">Send</button>
+        </div>
+    </div> -->
+        <!-- Header -->
+        <div class="header bg-gradient-info pb-8 pt-5 pt-md-8">
+            <div class="container-fluid">
+                <div class="header-body">
+                    <!-- Card stats -->
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="card card-stats mb-4 mb-xl-0">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="card-title text-uppercase text-muted mb-0">Vendor / Business Name
+                                            </h5>
+                                            {% if shop_name %}
+                                            <span class="h2 font-weight-bold mb-0">{{ shop_name }}</span>
+                                            {% else %}
+                                            <span class="h2 font-weight-bold mb-0">{{ user.first_name }} &nbsp; {{user.last_name }}</span>
+                                            {% endif %}
+
+                                        </div>
+                                        <div class="col-auto">
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="card card-stats mb-4 mb-xl-0">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="card-title text-uppercase text-muted mb-0">Total Shared Profile
+                                            </h5>
+                                            <span class="h2 font-weight-bold mb-0">{{num_candidates}}</span>
+                                        </div>
+                                        <div class="col-auto">
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="card card-stats mb-4 mb-xl-0">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="card-title text-uppercase text-muted mb-0">Projected Commission
+                                            </h5>
+                                            <span class="h2 font-weight-bold mb-0">{{ total_commission }}</span>
+                                        </div>
+                                        <div class="col-auto">
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="card card-stats mb-4 mb-xl-0">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="card-title text-uppercase text-muted mb-0">QR Code</h5>
+                                            <div class="qr-code-container">
+                                                {% if qr_code_url %}
+                                                    <img src="{{ qr_code_url }}" alt="QR Code" id="qrCodeImage" style="width: 100px; height: 100px;">
+                                                    <button id="downloadBtn" class="btn btn-info btn-sm" onclick="downloadQRCode()">
+                                                        <i class="fas fa-download"></i> Download
+                                                    </button>
+                                                    <button class="btn btn-primary btn-sm" onclick="shareQRCode()">
+                                                        <i class="fas fa-share-alt"></i> Share QR
+                                                    </button>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-6">
+                            <div class="card card-stats mb-4 mb-xl-0">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="card-title text-uppercase text-muted mb-0">Refer Code</h5>
+                                            <span class="h2 font-weight-bold mb-0">{{ user.username }}</span>
+                                            <button id="aboutBtn" class="btn btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                                              </svg></button>
+                                            <div class="col">
+                                                <p class="sizeoflink">Share this QR / Link with Candidate to Generate Lead :
+                                                    <a href="{{ referral_link }}" id="referralLink" target="_blank">{{ referral_link }}
+                                                        <a onclick="copyReferralLink()" class="brand-logo logo">
+                                                            <i class="fas fa-copy"></i>
+                                                        </a>
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div id="aboutModal" class="modal">
+                                            <div class="modal-content">
+                                                <span class="close">&times;</span>
+                                                <p>* Suggest them to signup by this link, your referral code will get updated automatically.</p>
+                                                <p>* You can manually update data of candidate individually or by .XLS or CSV file format.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary btn-sm" onclick="shareReferralLink()">
+                                        <i class="fas fa-share-alt"></i> Share Link
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mt--7">
+            <div class="row">
+                <div class="col-xl-12 mb-5 mb-xl-0">
+                    <div class="card shadow">
+                        <div class="card-header border-0">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h3 class="mb-0">Vendors</h3>
+                                </div>
+                                <!-- <div class="col text-right">
+                                    <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="candidateTable" class="table table-borderless table-striped table-earning">
+                                <thead class="thead-bold font-size-16">
+                                    <tr>
+
+                                        <th scope="col" style="font-size: 20px;">
+                                            Contact <br>
+                                            <select class="form-control filter-input" data-filter="contact-filter">
+                                                <option value="">All</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                        </th>
+
+
+                                        <th scope="col" style="font-size: 20px;">
+                                            Name <br>
+                                            <input type="text" class="form-control filter-input"
+                                                data-filter="name-filter" placeholder="Filter Name">
+                                        </th>
+                                        <th scope="col" style="font-size: 20px;">
+                                            Mobile <br>
+                                            <input type="text" class="form-control filter-input"
+                                                data-filter="mobile-filter" placeholder="Filter Mobile">
+                                        </th>
+                                        <th scope="col" style="font-size: 20px;">
+                                            Email <br>
+                                            <input type="text" class="form-control filter-input"
+                                                data-filter="email-filter" placeholder="Filter Email">
+                                        </th>
+                                        <th scope="col" style="font-size: 20px;">
+                                            Location <br>
+                                            <input type="text" class="form-control filter-input"
+                                                data-filter="location-filter" placeholder="Filter Location">
+                                        </th>
+                                        <th scope="col" style="font-size: 20px;">
+                                            Job Preference <br>
+                                            <input type="text" class="form-control filter-input"
+                                                data-filter="job-preference-filter" placeholder="Filter Job Preference">
+                                        </th>
+                                        <th scope="col" style="font-size: 20px;">
+                                            Status <br>
+                                            <select class="form-control filter-input" data-filter="status-filter">
+                                                <option value="">All</option>
+                                                <option value="Rejected">Rejected</option>
+                                                <option value="Hold">Hold</option>
+                                                <option value="Pending">Pending</option>
+                                                <option value="Selected">Selected</option>
+                                            </select>
+                                        </th>
+                                        <th scope="col" style="font-size: 20px;">
+                                            Commission <br>
+                                            <input type="text" class="form-control filter-input"
+                                                data-filter="location-filter" placeholder="Filter Location">
+                                        </th>
+                                        <th scope="col"  style="font-size: 20px; ">
+                                            Remark <br> <br> <br>
+                                            
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for candidate in candidates %}
+                                    <tr>
+                                        <!-- <td>{{ forloop.counter }}</td> -->
+                                        <td data-filter="contact-filter"
+                                            style="font-size: 15px; color: {% if candidate.Contact == 'Yes' %}green{% elif candidate.Contact == 'No' %}red{% endif %}; font-weight: bold; ">
+                                            {{ candidate.Contact }}</td>
+                                        <!-- <td data-filter="contact-by-filter">{{ candidate.Contact_by }}</td> -->
+
+                                        <td data-filter="name-filter" style="font-size: 15px;">{{ candidate.first_name}}&nbsp;{{ candidate.last_name }}</td>
+                                        <td data-filter="mobile-filter" style="font-size: 15px;">{{candidate.mobile_number }}</td>
+                                        <td data-filter="email-filter" style="font-size: 15px;">{{ candidate.email }}
+                                        </td>
+                                        <td data-filter="location-filter" style="font-size: 15px;">{{ candidate.location}}</td>
+                                        <td data-filter="job-preference-filter" style="font-size: 15px;">{{candidate.sector }}</td>
+                                        <td data-filter="status-filter"
+                                            style="font-size: 15px; color: {% if candidate.status == 'Rejected' %}red{% elif candidate.status == 'Hold' %}orange{% elif candidate.status == 'Pending' %}skyblue{% elif candidate.status == 'Selected' %}green{% endif %}; font-size: 16px;">
+                                            {{ candidate.status }}</td>
+                                        <td style="font-size: 15px;">{{ candidate.commission }}</td>
+                                        <td data-filter="job-preference-filter" style="font-size: 15px;"><textarea >{{ candidate.Remark }}</textarea></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/assets/js/plugins/jquery/dist/jquery.min.js"></script>
+    <script src="/static/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="/static/assets/js/plugins/chart.js/dist/Chart.min.js"></script>
+    <script src="/static/assets/js/plugins/chart.js/dist/Chart.extension.js"></script>
+    <script src="/static/assets/js/argon-dashboard.min.js?v=1.1.2"></script>
+    <script src="/static/assets/js/demo.min.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function () {
+        // Get all filter inputs
+        var filterInputs = document.querySelectorAll('.filter-input');
+    
+        // Add event listeners to each filter input
+        filterInputs.forEach(function (input) {
+            input.addEventListener('change', function () {
+                var filterType = input.getAttribute('data-filter');
+                var filterValue = input.value.toLowerCase(); // Convert value to lowercase for case insensitive comparison
+    
+                // Loop through each table row
+                var tableRows = document.querySelectorAll('#candidateTable tbody tr');
+                tableRows.forEach(function (row) {
+                    var rowData = row.querySelector('[data-filter="' + filterType + '"]').textContent.toLowerCase();
+    
+                    // Check if the row data contains the filter value
+                    if (rowData.includes(filterValue) || filterValue === '') {
+                        row.style.display = ''; // Show row
+                    } else {
+                        row.style.display = 'none'; // Hide row
+                    }
+                });
+            });
+        });
+    });
+    </script>
+    
+    <script>
+        function redirectToDetails(candidateId) {
+            window.location.href = '/candidate/details/' + candidateId + '/';
+        }
+    </script>
+   
+    
+
+    <script>
+
+        function redirectToDetails(candidateId) {
+            window.location.href = '/candidate/details/' + candidateId + '/';
+        }
+
+        function Profile() {
+            window.location.href = 'Profile';
+        }
+    </script>
+
+<script>
+function shareQRCode() {
+    const qrCodeImage = document.getElementById('qrCodeImage');
+    if (qrCodeImage) {
+        fetch(qrCodeImage.src)
+            .then(response => response.blob())
+            .then(blob => {
+                const file = new File([blob], "qr-code.png", { type: blob.type });
+                const shareData = {
+                    files: [file],
+                    title: 'Share QR Code',
+                    text: 'Check out this QR code!'
+                };
+
+                if (navigator.canShare && navigator.canShare(shareData)) {
+                    navigator.share(shareData)
+                        .then(() => console.log('Successfully shared QR code'))
+                        .catch((error) => console.error('Something went wrong sharing the QR code', error));
+                } else {
+                    alert('Your browser does not support sharing files.');
+                }
+            })
+            .catch(error => console.error('Error fetching the QR code image', error));
+    }
+}
+
+function shareReferralLink() {
+    const referralLink = document.getElementById('referralLink') ? document.getElementById('referralLink').href : '';
+    const shareText = `Check out this referral link: ${referralLink}`;
+
+    if (navigator.share) {
+        navigator.share({
+            title: 'Share Referral Link',
+            text: shareText,
+            url: referralLink
+        }).then(() => {
+            console.log('Successfully shared referral link');
+        }).catch((error) => {
+            console.error('Something went wrong sharing the referral link', error);
+        });
+    } else {
+        // Fallback to manual copy
+        copyToClipboard(shareText);
+        alert('Share this referral link: ' + shareText);
+    }
+}
+
+function copyToClipboard(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+}
+
+function downloadQRCode() {
+    const qrCodeUrl = document.getElementById('qrCodeImage').src;
+    const link = document.createElement('a');
+    link.href = qrCodeUrl;
+    link.download = 'qr-code.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function copyReferralLink() {
+    const referralLink = document.getElementById('referralLink').href;
+    copyToClipboard(referralLink);
+    alert('Referral link copied to clipboard');
+}
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    var modal = document.getElementById("aboutModal");
+    var btn = document.getElementById("aboutBtn");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+});
+</script>
+</body>
+</html>
